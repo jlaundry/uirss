@@ -58,8 +58,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     description = SubElement(channel, 'description')
 
     title.text = "Ubiquiti Releases"
-    link.text = "http://localhost:7071/api/releases"
-    description.text = "Ubiquiti Releases"
+    link.text = "https://jlaundry-uirss.azurewebsites.net/api/releases"
+    description.text = "Ubiquiti Releases - Featured updates tagged edgemax and/or unifi-wireless"
 
     r = requests.post(REQ_URL, json=REQ_DATA, headers=REQ_HEADERS)
     # logging.debug(f"status_code:{r.status_code}, text:{r.text}")
@@ -83,7 +83,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             category.text = tag
 
         description = SubElement(i, 'description')
-        description.text = json.dumps(item, indent=2)
+        description.text = "Tags: {}".format(", ".join(item['tags']))
 
     return func.HttpResponse(
         tostring(doc),
