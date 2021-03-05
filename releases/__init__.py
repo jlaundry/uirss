@@ -63,7 +63,7 @@ RELEASE_INFO_SECTIONS = [
     ("Known Issues", "knownIssues"),
 ]
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def main(req: func.HttpRequest, outfile: func.Out[func.InputStream]) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # for k, v in XMLNS.iteritems():
@@ -130,7 +130,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if release_info[section] is None:
                 continue
             content = "\n".join([x['content'] for x in release_info[section] if x['type'] == 'TEXT' and len(x['content']) > 0])
-            page += f"<h1>{h1}</h1>{content}"
+            page += f"<h1>{h1}</h1><br />{content}"
 
         # page += "<h1>Products</h1><ul>"
         # for product in release_info['products']:
@@ -139,7 +139,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         description.text = CDATA(page)
 
+    output = tostring(doc, pretty_print=True, encoding='UTF-8', xml_declaration=True)
+    outfile.set(output)
+
     return func.HttpResponse(
-        tostring(doc, pretty_print=True, encoding='UTF-8', xml_declaration=True),
+        output,
         mimetype="text/xml",
     )
