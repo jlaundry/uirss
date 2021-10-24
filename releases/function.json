@@ -15,14 +15,6 @@
       "type": "http",
       "direction": "out",
       "name": "$return"
-    },
-    {
-      "name": "outfile",
-      "type": "blob",
-      "direction": "out",
-
-      "connection": "PublicWebStorage",
-      "path": "web/rss/ui-updates.xml"
     }
   ]
 }
