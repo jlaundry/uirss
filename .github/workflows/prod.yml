@@ -25,6 +25,6 @@ jobs:
       uses: azure/functions-action@v1.4.0
       with:
         app-name: func-uirss-prod-westus2-e1db18f3
-        publish-profile: ${{ secrets.PRODUCTION_AZURE_PUBLISH_PROFILE }}
+        publish-profile: ${{ secrets.PROD_AZURE_PUBLISH_PROFILE }}
         scm-do-build-during-deployment: ''
         enable-oryx-build: ''
