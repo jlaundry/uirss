@@ -63,7 +63,7 @@ RELEASE_INFO_SECTIONS = [
     ("Known Issues", "knownIssues"),
 ]
 
-def main(req: func.HttpRequest, outfile: func.Out[func.InputStream]) -> func.HttpResponse:
+def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # for k, v in XMLNS.iteritems():
@@ -140,7 +140,7 @@ def main(req: func.HttpRequest, outfile: func.Out[func.InputStream]) -> func.Htt
         description.text = CDATA(page)
 
     output = tostring(doc, pretty_print=True, encoding='UTF-8', xml_declaration=True)
-    outfile.set(output)
+    # outfile.set(output)
 
     return func.HttpResponse(
         output,
